@@ -377,6 +377,12 @@ function computeAutoGeometry(options: ComputeGeometryAutoProps): Geometry {
   // Otherwise, find the place that can fit it best (try left/right but default to top/bottom as that will typically have more space
   const arrowSize = getArrowSize(Placement.LEFT, arrowStyle);
 
+  // We could fit it on the top or bottom, need to figure out which is better
+  let topSpace = fromRect.y - displayArea.y;
+  let bottomSpace = displayArea.y + displayArea.height - (fromRect.y + fromRect.height);
+  debug("computeAutoGeometry - Top/bottom picking best, top space", topSpace);
+  return (topSpace - 50) > bottomSpace ? computeTopGeometry(options) : computeBottomGeometry(options);
+  
   // If it fits on left, choose left
   if (fromRect.x - displayArea.x - arrowSize.width >= requestedContentSize.width) { // We could fit it on the left side
     debug("computeAutoGeometry - could fit on left side");
@@ -388,10 +394,5 @@ function computeAutoGeometry(options: ComputeGeometryAutoProps): Geometry {
     debug("computeAutoGeometry - could fit on right side");
     return computeRightGeometry(options);
   }
-
-  // We could fit it on the top or bottom, need to figure out which is better
-  let topSpace = fromRect.y - displayArea.y;
-  let bottomSpace = displayArea.y + displayArea.height - (fromRect.y + fromRect.height);
-  debug("computeAutoGeometry - Top/bottom picking best, top space", topSpace);
-  return (topSpace - 50) > bottomSpace ? computeTopGeometry(options) : computeBottomGeometry(options);
+  
 }

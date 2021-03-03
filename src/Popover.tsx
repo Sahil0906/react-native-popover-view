@@ -731,7 +731,6 @@ class BasePopover extends Component<BasePopoverProps, BasePopoverState> {
 
     
     const backgroundColor = StyleSheet.flatten(arrowStyle).backgroundColor || StyleSheet.flatten(popoverStyle).backgroundColor || styles.popoverContent.backgroundColor;
-    const style = StyleSheet.flatten(arrowStyle)
     
     let colors = {};
     switch (placement) {
@@ -762,7 +761,7 @@ class BasePopover extends Component<BasePopoverProps, BasePopoverState> {
       borderBottomWidth: height / 2,
       borderLeftWidth: width / 2,
       ...colors
-      ...style
+      ...StyleSheet.flatten(arrowStyle)
     }
   }
 

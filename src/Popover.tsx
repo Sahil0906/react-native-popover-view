@@ -729,7 +729,10 @@ class BasePopover extends Component<BasePopoverProps, BasePopoverState> {
     const { arrowStyle, popoverStyle } = this.props;
     const {  width, height } = this.getCalculatedArrowDims();
 
+    
     const backgroundColor = StyleSheet.flatten(arrowStyle).backgroundColor || StyleSheet.flatten(popoverStyle).backgroundColor || styles.popoverContent.backgroundColor;
+    const style = StyleSheet.flatten(arrowStyle)
+    
     let colors = {};
     switch (placement) {
       case Placement.TOP:
@@ -759,6 +762,7 @@ class BasePopover extends Component<BasePopoverProps, BasePopoverState> {
       borderBottomWidth: height / 2,
       borderLeftWidth: width / 2,
       ...colors
+      ...style
     }
   }
 
